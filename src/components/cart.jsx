@@ -1,25 +1,56 @@
-export default function Cart({title, price, favorite, summery, color}) {
+export default function Cart({ title, price, favorite, summery, color }) {
     return (
+        <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm hover:shadow-md transition">
 
-        <div className="bg-white p-5 rounded-md shadow-sm border border-gray-200">
-            <img src={"/img/watch.png"} alt=""/>
-            <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
-            <p className="text-sm text-gray-500 mt-2">
+            <img
+                src="/img/watch.png"
+                alt={title}
+                className="w-full h-40 object-contain mb-4"
+            />
+
+            <h2 className="text-base font-medium text-gray-900">
+                {title}
+            </h2>
+
+            <p className="mt-1 text-sm text-gray-500 leading-relaxed">
                 {summery}
             </p>
+
             <div className="mt-4 flex items-center justify-between">
-                <span className="text-gray-800 font-bold text-base">{price} تومان</span>
-                <span className={"flex items-center justify-center gap-2"}>
-                    <button className="w-7 h-7 text-sm rounded-full border border-gray-300 hover:bg-gray-200 transition outline-0">
-                        {favorite?"❤️":"🤍"}
+        <span className="text-sm font-semibold text-gray-800">
+          {price} تومان
+        </span>
+
+                <div className="flex items-center gap-2">
+                    <button
+                        className="w-8 h-8 rounded-full border border-gray-300 text-sm
+                       hover:bg-gray-100 transition flex items-center justify-center"
+                    >
+                        {favorite ? "❤️" : "🤍"}
                     </button>
-                    <span className={`inline-block w-7 h-7 rounded-full border border-gray-300`} style={{background:color }} ></span>
-                </span>
+
+                    <span
+                        className="w-6 h-6 rounded-full border border-gray-300"
+                        style={{ backgroundColor: color }}
+                    />
+                </div>
             </div>
+
             <div className="mt-4 flex items-center justify-between">
-                <a href="#" className="hover:underline text-zinc-400 hover:text-zinc-600">بیشتر...</a>
+                <a
+                    href="#"
+                    className="text-sm text-gray-400 hover:text-gray-600 transition"
+                >
+                    بیشتر...
+                </a>
+
+                <button
+                    className="text-sm font-medium text-gray-700
+                     hover:text-gray-900 transition"
+                >
+                    افزودن به سبد
+                </button>
             </div>
         </div>
-
-    )
+    );
 }
