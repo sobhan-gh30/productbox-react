@@ -1,6 +1,6 @@
 import ProductCartBasket from "./productCartBasket.jsx";
 
-export default function BasketCart({hidden, basketShowHandler, cartItems}){
+export default function BasketCart({hidden, basketShowHandler, cartItems, EmptyBasket}){
 
     // فرمت قیمت به صورت تومان
     const formatPrice = (price) => {
@@ -106,7 +106,7 @@ export default function BasketCart({hidden, basketShowHandler, cartItems}){
                                 <div className="flex gap-3 order-1 sm:order-2">
                                     {cartItems.length > 0 && (
                                         <button
-                                            // onClick={clearCart}
+                                            onClick={EmptyBasket}
                                             className="bg-red-50 text-red-700 hover:bg-red-100 font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -134,10 +134,10 @@ function App() {
         setCartItems(prev => [...prev, item])
     }
 
-    // // تخلیه سبد خرید
-    // const clearCart = () => {
-    //     setCartItems([]);
-    // };
+    // تخلیه سبد خرید
+    function EmptyBasket(){
+        setCartItems([]);
+    };
     function basketShowHandler(){
         setBCS(prev => !prev);
     }
@@ -157,7 +157,7 @@ function App() {
                           ))
               }
           </div>
-          <BasketCart hidden={BCS} basketShowHandler={basketShowHandler} cartItems={cartItems}/>
+          <BasketCart hidden={BCS} basketShowHandler={basketShowHandler} cartItems={cartItems} EmptyBasket={EmptyBasket}/>
           <ButtonNavigation filterChange={filterChange} basketShowHandler={basketShowHandler} BCS={BCS} filter={filter}/>
 
       </>
