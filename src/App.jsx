@@ -106,17 +106,32 @@ function App() {
             color: "#D0D5DA"
         }
     ]);
+    let [filter , setFilter] = useState("all");
+
+    function filterChange() {
+        if (filter === "all") {
+            setFilter("fav");
+        }else{
+            setFilter("all");
+        }
+    }
 
   return (
       <>
           <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {
-                  watches.map((watche)=>{
-                      return <Cart key={watche.id} {...watche}/>
-                  })
+                  filter === "all" ?
+                  watches.map((watch)=>{
+                      return <Cart key={watch.id} {...watch}/>
+                  }):
+                      watches
+                          .filter((watch) => watch.favorite)
+                          .map((watch) => (
+                              <Cart key={watch.id} {...watch} />
+                          ))
               }
           </div>
-          <ButtonNavigation/>
+          <ButtonNavigation filterChange={filterChange} filter={filter}/>
       </>
   )
 }
