@@ -1,5 +1,5 @@
 import Cart from "./components/cart.jsx";
-import {useState} from "react";
+import React, {useState} from "react";
 import ButtonNavigation from "./components/buttonNavigation.jsx";
 import BasketCart from "./components/basketCart.jsx";
 
@@ -107,10 +107,12 @@ function App() {
             color: "#D0D5DA"
         }
     ]);
+    const [cartItems, setCartItems] = useState([]);
     let [filter , setFilter] = useState("all");
     //BasketCartShown
     let [BCS , setBCS] = useState(true);
 
+    //فیلتر کردن بر اساس اینکه اون محصول لایک شده یا نه
     function filterChange() {
         if (filter === "all") {
             setFilter("fav");
@@ -118,6 +120,7 @@ function App() {
             setFilter("all");
         }
     }
+    //لایک کردن یک محصول
     function likeItem(id) {
         setWatches(prev =>
             prev.map(item =>
@@ -127,6 +130,14 @@ function App() {
             )
         );
     }
+    function addToBasket(item){
+        setCartItems(prev => [...prev, item])
+    }
+
+    // // تخلیه سبد خرید
+    // const clearCart = () => {
+    //     setCartItems([]);
+    // };
     function basketShowHandler(){
         setBCS(prev => !prev);
     }
@@ -137,16 +148,16 @@ function App() {
               {
                   filter === "all" ?
                   watches.map((watch)=>{
-                      return <Cart key={watch.id} {...watch} onFav={()=>{likeItem(watch.id)}} />
+                      return <Cart key={watch.id} {...watch} onFav={()=>{likeItem(watch.id)}} addToBasket={()=>{addToBasket(watch)}} cartItems={cartItems}/>
                   }):
                       watches
                           .filter((watch) => watch.favorite)
                           .map((watch) => (
-                              <Cart key={watch.id} {...watch} onFav={()=>{likeItem(watch.id)}} />
+                              <Cart key={watch.id} {...watch} onFav={()=>{likeItem(watch.id)}} addToBasket={()=>{addToBasket(watch)}} cartItems={cartItems}/>
                           ))
               }
           </div>
-          <BasketCart hidden={BCS}/>
+          <BasketCart hidden={BCS} basketShowHandler={basketShowHandler} cartItems={cartItems}/>
           <ButtonNavigation filterChange={filterChange} basketShowHandler={basketShowHandler} BCS={BCS} filter={filter}/>
 
       </>

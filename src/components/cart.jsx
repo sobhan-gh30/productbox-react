@@ -1,4 +1,4 @@
-export default function Cart({id, title, price, favorite, summery, color, onFav }) {
+export default function Cart({id, title, price, favorite, summery, color, onFav, addToBasket, cartItems }) {
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm hover:shadow-md transition">
 
@@ -45,12 +45,11 @@ export default function Cart({id, title, price, favorite, summery, color, onFav 
                     بیشتر...
                 </a>
 
-                <button
-                    className="text-sm font-medium text-gray-700
-                     hover:text-gray-900 transition"
-                >
-                    افزودن به سبد
-                </button>
+                {
+                    cartItems.find(item => item.id === id)? <span>✅ </span> :<button onClick={addToBasket} className="text-sm font-medium text-gray-700 hover:text-gray-900 transition">افزودن به سبد</button>
+                }
+
+
             </div>
         </div>
     );

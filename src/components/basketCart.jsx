@@ -1,31 +1,13 @@
-import React, { useState } from 'react';
 import ProductCartBasket from "./productCartBasket.jsx";
 
-export default function BasketCart({hidden}){
-    // وضعیت اولیه سبد خرید با چند محصول نمونه
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            title: "ساعت مینیمال کلاسیک",
-            price: 350000,
-            description: "این ساعت برای کسایی ساخته شده که عاشق سادگی و تمیزی طراحی هستن. صفحه‌ی تمیز و بدون شلوغی باعث میشه توی هر نوری خوانا باشه و بند چرمی نرمش استایلت رو شیک و مرتب نگه می‌داره. به‌خاطر ظاهر مینیمال، هم برای استایل روزمره خیلی مناسبِ، هم کنار لباس رسمی اصلاً تو ذوق نمی‌زنه. حس \"کم‌گو اما پُرمعنا\" میده، دقیقاً برای آدم‌هایی که دنبال ظرافت بی‌سر‌وصدا هستن.",
-            favorite: false,
-            img: "https://via.placeholder.com/400x300?text=Minimal+Classic",
-            summery: "طراحی مینیمال، بند چرمی، صفحه 40mm",
-            color: "#A8A29E"
-        },
-
-    ]);
+export default function BasketCart({hidden, basketShowHandler, cartItems}){
 
     // فرمت قیمت به صورت تومان
     const formatPrice = (price) => {
         return new Intl.NumberFormat('fa-IR').format(price) + " تومان";
     };
 
-    // تخلیه سبد خرید
-    const clearCart = () => {
-        setCartItems([]);
-    };
+
 
 
     return (
@@ -57,7 +39,8 @@ export default function BasketCart({hidden}){
                   {formatPrice()}
                 </span>
                                 <button
-                                    className="text-white hover:text-gray-200 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-2 transition-all duration-200"
+                                    onClick={basketShowHandler}
+                                    className="text-gray-600 hover:text-gray-400 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-2 transition-all duration-200"
                                     aria-label="بستن مودال"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -123,7 +106,7 @@ export default function BasketCart({hidden}){
                                 <div className="flex gap-3 order-1 sm:order-2">
                                     {cartItems.length > 0 && (
                                         <button
-                                            onClick={clearCart}
+                                            // onClick={clearCart}
                                             className="bg-red-50 text-red-700 hover:bg-red-100 font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -134,6 +117,7 @@ export default function BasketCart({hidden}){
                                     )}
 
                                     <button
+                                        onClick={basketShowHandler}
                                         className="bg-gray-200 text-gray-800 hover:bg-gray-300 font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center"
                                     >
                                         ادامه خرید
