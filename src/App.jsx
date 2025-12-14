@@ -1,5 +1,6 @@
 import Cart from "./components/cart.jsx";
 import {useState} from "react";
+import ButtonNavigation from "./components/buttonNavigation.jsx";
 
 
 function App() {
@@ -115,6 +116,7 @@ function App() {
                   })
               }
           </div>
+          <ButtonNavigation/>
       </>
   )
 }
