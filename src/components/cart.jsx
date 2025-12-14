@@ -1,4 +1,4 @@
-export default function Cart({ title, price, favorite, summery, color }) {
+export default function Cart({id, title, price, favorite, summery, color, onFav }) {
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm hover:shadow-md transition">
 
@@ -23,6 +23,7 @@ export default function Cart({ title, price, favorite, summery, color }) {
 
                 <div className="flex items-center gap-2">
                     <button
+                        onClick={() =>onFav(id)}
                         className="w-8 h-8 rounded-full border border-gray-300 text-sm
                        hover:bg-gray-100 transition flex items-center justify-center"
                     >

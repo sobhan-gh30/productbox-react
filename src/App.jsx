@@ -115,19 +115,28 @@ function App() {
             setFilter("all");
         }
     }
+    function likeItem(id) {
+        setWatches(prev =>
+            prev.map(item =>
+                item.id === id
+                    ? { ...item, favorite: !item.favorite }
+                    : item
+            )
+        );
+    }
 
-  return (
+    return (
       <>
           <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {
                   filter === "all" ?
                   watches.map((watch)=>{
-                      return <Cart key={watch.id} {...watch}/>
+                      return <Cart key={watch.id} {...watch} onFav={()=>{likeItem(watch.id)}} />
                   }):
                       watches
                           .filter((watch) => watch.favorite)
                           .map((watch) => (
-                              <Cart key={watch.id} {...watch} />
+                              <Cart key={watch.id} {...watch} onFav={()=>{likeItem(watch.id)}} />
                           ))
               }
           </div>
