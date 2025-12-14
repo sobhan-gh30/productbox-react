@@ -1,6 +1,7 @@
 import Cart from "./components/cart.jsx";
 import {useState} from "react";
 import ButtonNavigation from "./components/buttonNavigation.jsx";
+import BasketCart from "./components/basketCart.jsx";
 
 
 function App() {
@@ -107,6 +108,8 @@ function App() {
         }
     ]);
     let [filter , setFilter] = useState("all");
+    //BasketCartShown
+    let [BCS , setBCS] = useState(true);
 
     function filterChange() {
         if (filter === "all") {
@@ -124,6 +127,9 @@ function App() {
             )
         );
     }
+    function basketShowHandler(){
+        setBCS(prev => !prev);
+    }
 
     return (
       <>
@@ -140,7 +146,9 @@ function App() {
                           ))
               }
           </div>
-          <ButtonNavigation filterChange={filterChange} filter={filter}/>
+          <BasketCart hidden={BCS}/>
+          <ButtonNavigation filterChange={filterChange} basketShowHandler={basketShowHandler} BCS={BCS} filter={filter}/>
+
       </>
   )
 }

@@ -1,4 +1,4 @@
-export default function ButtonNavigation({filterChange , filter}) {
+export default function ButtonNavigation({filterChange , filter , basketShowHandler, BCS}) {
     return (
 
 
@@ -7,7 +7,7 @@ export default function ButtonNavigation({filterChange , filter}) {
 
                 {/*GitHub page*/}
                 <a href="https://github.com/sobhan-gh30" target={"_blank"}
-                        className="inline-flex flex-col items-center justify-center px-5 hover:bg-zinc-50">
+                        className="inline-flex flex-col items-center justify-center px-5 hover:bg-zinc-100">
                     <svg className="bi bi-github w-6 h-6 mb-1 text-body group-hover:text-fg-brand"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                         <path
@@ -19,7 +19,7 @@ export default function ButtonNavigation({filterChange , filter}) {
 
                 {/*Liked*/}
                 <button onClick={filterChange} type="button"
-                        className="inline-flex flex-col items-center justify-center px-5 hover:bg-zinc-50">
+                        className="inline-flex flex-col items-center justify-center px-5 hover:bg-zinc-100">
                     {
 
                         filter === "all" ?
@@ -43,7 +43,8 @@ export default function ButtonNavigation({filterChange , filter}) {
 
                 {/*Wallet*/}
                 <button type="button"
-                        className="inline-flex flex-col items-center justify-center px-5 hover:bg-zinc-50">
+                        onClick={basketShowHandler}
+                        className={`inline-flex flex-col items-center justify-center px-5 hover:bg-zinc-100 ${BCS?"bg-white":"bg-zinc-100"}`}>
                     <svg className="w-6 h-6 mb-1 text-body group-hover:text-fg-brand" aria-hidden="true"
                          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
