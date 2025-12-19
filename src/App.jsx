@@ -149,9 +149,6 @@ function App() {
         getApi();
     },[])
 
-    useEffect(()=>{
-        console.log(watches);
-    },[watches])
     // Error handling
     useEffect(() => {
         if (error) {
