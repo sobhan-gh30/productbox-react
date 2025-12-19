@@ -118,7 +118,7 @@ function App() {
     // cart related states
     const [cartItems, setCartItems] = useState([]);
     //BasketCartShown
-    let [BCS , setBCS] = useState(true);
+    let [IsBasketHidden , setIsBasketHidden] = useState(true);
 
     //filter states
     let [filter , setFilter] = useState("all");
@@ -130,7 +130,7 @@ function App() {
             try{
                 setLoading(true);
 
-                 const response = await fetch('https://fakestorepi.com/products')
+                 const response = await fetch('https://fakestoreapi.com/products')
                 if(!response.ok){
                     throw new Error(
                         `Http error = ${response.status} - ${response.statusText}`
@@ -138,7 +138,8 @@ function App() {
                 }
                 const data = await response.json();
 
-                setWatches(data);
+
+                setWatches(data.map(item => ({ ...item, favorite: false })));
             } catch (error) {
                 setError(error);
             } finally {
@@ -147,6 +148,16 @@ function App() {
         }
         getApi();
     },[])
+
+    useEffect(()=>{
+        console.log(watches);
+    },[watches])
+    // Error handling
+    useEffect(() => {
+        if (error) {
+            swal("ERROR", error.message, "error");
+        }
+    }, [error]);
 
     //فیلتر کردن بر اساس اینکه اون محصول لایک شده یا نه
     function filterChange() {
@@ -175,7 +186,7 @@ function App() {
         setCartItems([]);
     };
     function basketShowHandler(){
-        setBCS(prev => !prev);
+        setIsBasketHidden(prev => !prev);
     }
 
 
@@ -184,9 +195,6 @@ function App() {
 
     if(loading){
         return <Loader/>
-    }
-    if(error){
-        swal("ERROR", `${error}`, "error");
     }
     return (
       <>
@@ -203,8 +211,8 @@ function App() {
                           ))
               }
           </div>
-          <BasketCart hidden={BCS} basketShowHandler={basketShowHandler} cartItems={cartItems} EmptyBasket={EmptyBasket}/>
-          <ButtonNavigation filterChange={filterChange} basketShowHandler={basketShowHandler} BCS={BCS} filter={filter}/>
+          <BasketCart hidden={IsBasketHidden} basketShowHandler={basketShowHandler} cartItems={cartItems} EmptyBasket={EmptyBasket}/>
+          <ButtonNavigation filterChange={filterChange} basketShowHandler={basketShowHandler} IsBasketHidden={IsBasketHidden} filter={filter}/>
 
       </>
   )
