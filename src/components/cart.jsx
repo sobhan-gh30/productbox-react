@@ -1,9 +1,10 @@
-export default function Cart({id, title, price, favorite, summery, color, onFav, addToBasket, cartItems }) {
+export default function Cart({id, title, price, favorite, summery, color, onFav, addToBasket, cartItems, image }) {
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm hover:shadow-md transition">
 
             <img
-                src="/img/watch.png"
+                // src="/img/watch.png"
+                src={image}
                 alt={title}
                 className="w-full h-40 object-contain mb-4"
             />
