@@ -130,7 +130,7 @@ function App() {
             try{
                 setLoading(true);
 
-                 const response = await fetch('https://fakestoreapi.com/products')
+                 const response = await fetch('https://fakestorepi.com/products')
                 if(!response.ok){
                     throw new Error(
                         `Http error = ${response.status} - ${response.statusText}`
@@ -186,7 +186,7 @@ function App() {
         return <Loader/>
     }
     if(error){
-        swal("ERROR", "Failed to fetch data", "error");
+        swal("ERROR", `${error}`, "error");
     }
     return (
       <>
