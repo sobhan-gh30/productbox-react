@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import ButtonNavigation from "./components/buttonNavigation.jsx";
 import BasketCart from "./components/basketCart.jsx";
 import Loader from "./components/Loader.jsx";
+import swal from 'sweetalert';
 
 
 function App() {
@@ -136,10 +137,12 @@ function App() {
                     );
                 }
                 const data = await response.json();
-                setLoading(false);
+
                 setWatches(data);
             } catch (error) {
-                console.log(error);
+                setError(error);
+            } finally {
+                setLoading(false);
             }
         }
         getApi();
@@ -175,8 +178,15 @@ function App() {
         setBCS(prev => !prev);
     }
 
+
+
+    // return section
+
     if(loading){
         return <Loader/>
+    }
+    if(error){
+        swal("ERROR", "Failed to fetch data", "error");
     }
     return (
       <>
