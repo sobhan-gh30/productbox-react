@@ -123,27 +123,33 @@ function App() {
     //filter states
     let [filter , setFilter] = useState("all");
 
-
-
     useEffect( () => {
         async function getApi(){
-            try{
-                setLoading(true);
+            let retry = 3
+            let attempt = 1
 
-                 const response = await fetch('https://fakestoreapi.com/products')
-                if(!response.ok){
-                    throw new Error(
-                        `Http error = ${response.status} - ${response.statusText}`
-                    );
+            for (attempt; attempt <= retry; attempt++) {
+                try {
+                    setLoading(true);
+                    const response = await fetch('https://fakestoreapi.com/product');
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    setWatches(data.map(item => ({ ...item, favorite: false })));
+                    return;
+                } catch (error) {
+                    if (attempt === retry) {
+                        setError(error);
+                        throw error;
+                    }
+                    let backoffTime = 2**(attempt-1)*1000;
+                    await new Promise(resolve => setTimeout(resolve, backoffTime));
+                } finally {
+                    setLoading(false);
                 }
-                const data = await response.json();
-
-
-                setWatches(data.map(item => ({ ...item, favorite: false })));
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
             }
         }
         getApi();
