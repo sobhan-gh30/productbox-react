@@ -4,6 +4,7 @@ import ButtonNavigation from "./components/buttonNavigation.jsx";
 import BasketCart from "./components/basketCart.jsx";
 import Loader from "./components/Loader.jsx";
 import swal from 'sweetalert';
+import SearchSection from "./components/searchSection.jsx";
 
 
 function App() {
@@ -201,7 +202,8 @@ function App() {
     }
     return (
       <>
-          <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <SearchSection/>
+          <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-20">
               {
                   filter === "all" ?
                   watches.map((watch)=>{
