@@ -1,4 +1,8 @@
 export default function Cart({id, title, price, favorite, summery, color, onFav, addToBasket, cartItems, image }) {
+    // فرمت قیمت به صورت تومان
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('fa-IR').format(price) + " تومان";
+    };
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm hover:shadow-md transition">
 
@@ -19,7 +23,7 @@ export default function Cart({id, title, price, favorite, summery, color, onFav,
 
             <div className="mt-4 flex items-center justify-between">
         <span className="text-sm font-semibold text-gray-800">
-          {price} تومان
+          {formatPrice(price*10000)}
         </span>
 
                 <div className="flex items-center gap-2">

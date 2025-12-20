@@ -56,7 +56,7 @@ export default function ProductCartBasket({title, price, color}){
                         <div className="text-left">
                             <div>
                                 <div className="flex items-center mt-1">
-                                    <p className="text-lg text-gray-800 font-bold">{formatPrice(price)}</p>
+                                    <p className="text-lg text-gray-800 font-bold">{formatPrice(price*10000)}</p>
                                 </div>
                             </div>
                             <p className="text-sm text-gray-600 mt-1">قیمت برای هر عدد</p>
