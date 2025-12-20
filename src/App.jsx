@@ -8,7 +8,7 @@ import SearchSection from "./components/searchSection.jsx";
 
 
 function App() {
-    // let [watches , setWatches]= useState([
+    // let [productes , setProductes]= useState([
     //     {
     //         id: 1,
     //         title: "ساعت مینیمال کلاسیک",
@@ -45,7 +45,7 @@ function App() {
     //         price: 780000,
     //         description: "یه گزینه‌ی خیلی راحت برای کسایی که می‌خوان بدون پرداخت هزینه‌ی زیاد، امکانات پایه‌ی یک ساعت هوشمند رو داشته باشن. نوتیفیکیشن‌ها رو نشون میده، گام‌شمار و ردیاب خواب داره و صفحه‌ی لمسیش کار کردن باهاش رو ساده می‌کنه. ظاهرش هم ساده‌ست و برای استفاده‌ی روزمره کاملاً مناسبه. نه خیلی حرفه‌ایه و نه خیلی ابتدایی—درست توی نقطه‌ی تعادل.",
     //         favorite: false,
-    //         img: "https://via.placeholder.com/400x300?text=Smartwatch",
+    //         img: "https://via.placeholder.com/400x300?text=Smartproduct",
     //         summery: "نمایشگر لمسی، نوتیفیکیشن، گام‌شمار",
     //         color: "#D1D5DB"
     //     },
@@ -85,7 +85,7 @@ function App() {
     //         price: 650000,
     //         description: "این ساعت توی دسته‌ی \"خاص‌پسند\" قرار می‌گیره. چون از چوب طبیعی ساخته شده، هر ساعت یک الگوی چوبیِ منحصر به‌فرد داره. سبک و راحت روی دست می‌شینه و حس طبیعت، سادگی و آرامش منتقل می‌کنه. اگر دنبال چیزی هستی که صنعتی یا تکراری نباشه، این یکی شخصیت و روح خودش رو داره—یه حالت گرم و هنری.",
     //         favorite: false,
-    //         img: "https://via.placeholder.com/400x300?text=Wooden+Watch",
+    //         img: "https://via.placeholder.com/400x300?text=Wooden+product",
     //         summery: "چوب طبیعی، سبک، طراحی خاص",
     //         color: "#C8A575"
     //     },
@@ -112,15 +112,12 @@ function App() {
     // ]);
 
     // API related stated
-    const [watches , setWatches] = useState([]);
+    const [product , setProduct] = useState([]);
     const [loading , setLoading] = useState(false);
     const [error , setError] = useState(null);
 
     //search related states
     const [searchValue, setSearchValue] = useState("");
-    const [searchedItem, setSearchedItem] = useState([]);
-    const [onSearch, setOnSearch] = useState(false);
-
     // cart related states
     const [cartItems, setCartItems] = useState([]);
     //BasketCartShown
@@ -129,6 +126,7 @@ function App() {
     //filter states
     const [filter , setFilter] = useState("all");
 
+    //API
     useEffect( () => {
         async function getApi(){
             let retry = 3
@@ -144,7 +142,7 @@ function App() {
                     }
 
                     const data = await response.json();
-                    setWatches(data.map(item => ({ ...item, favorite: false })));
+                    setProduct(data.map(item => ({ ...item, favorite: false })));
                     return;
                 } catch (error) {
                     if (attempt === retry) {
@@ -178,7 +176,7 @@ function App() {
         }
     }
     function likeItem(id) {
-        setWatches(prev =>
+        setProduct(prev =>
             prev.map(item =>
                 item.id === id
                     ? { ...item, favorite: !item.favorite }
@@ -203,16 +201,13 @@ function App() {
     function searchHandler(item){
         setSearchValue(item);
         if(item) {
-            setSearchedItem(watches.filter(w => w.title.toLowerCase().includes(item.toLowerCase())));
-            setOnSearch(true);
+            setProduct(perv => perv.filter(w => w.title.toLowerCase().includes(item.toLowerCase())));
         } else {
             emptySearchInput();
         }
     }
     function emptySearchInput(){
         setSearchValue("");
-        setSearchedItem([]);
-        setOnSearch(false);
 
     }
 
@@ -236,14 +231,14 @@ function App() {
             <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-20">
                 {(
                     filter === "all"
-                        ? (onSearch ? searchedItem : watches)
-                        : (onSearch ? searchedItem : watches.filter(w => w.favorite))
-                ).map(watch => (
+                        ? product
+                        : product.filter(w => w.favorite)
+                ).map(product => (
                     <Cart
-                        key={watch.id}
-                        {...watch}
-                        onFav={() => likeItem(watch.id)}
-                        addToBasket={() => addToBasket(watch)}
+                        key={product.id}
+                        {...product}
+                        onFav={() => likeItem(product.id)}
+                        addToBasket={() => addToBasket(product)}
                         cartItems={cartItems}
                     />
                 ))}
