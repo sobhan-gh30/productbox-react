@@ -131,7 +131,7 @@ function App() {
             for (attempt; attempt <= retry; attempt++) {
                 try {
                     setLoading(true);
-                    const response = await fetch('https://fakestoreapi.com/product');
+                    const response = await fetch('https://fakestoreapi.com/products');
 
                     if (!response.ok) {
                         throw new Error(`HTTP ${response.status}`);
