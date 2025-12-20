@@ -1,4 +1,4 @@
-export default function SearchSection() {
+export default function SearchSection({searchValue , searchHandler, emptySearchInput}) {
 
     return (
 
@@ -9,7 +9,7 @@ export default function SearchSection() {
                     Sobhan-gh30
                 </a>
                 <div className="flex items-center md:order-2">
-                    <form className="form relative w-80">
+                    <div className="form relative w-80">
                         <button className="absolute left-2 -translate-y-1/2 top-1/2 p-1">
                             <svg width="17" height="16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -31,8 +31,10 @@ export default function SearchSection() {
                             placeholder="Search..."
                             required=""
                             type="text"
+                            value={searchValue}
+                            onChange={(e) => {searchHandler(e.target.value)}}
                         />
-                        <button type="reset" className="absolute right-3 -translate-y-1/2 top-1/2 p-1">
+                        <button onClick={emptySearchInput} className="absolute right-3 -translate-y-1/2 top-1/2 p-1">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="w-5 h-5 text-gray-700"
@@ -47,7 +49,7 @@ export default function SearchSection() {
                                 ></path>
                             </svg>
                         </button>
-                    </form>
+                    </div>
 
 
                 </div>

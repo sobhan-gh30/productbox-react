@@ -112,17 +112,22 @@ function App() {
     // ]);
 
     // API related stated
-    let [watches , setWatches] = useState([]);
-    let [loading , setLoading] = useState(false);
-    let [error , setError] = useState(null);
+    const [watches , setWatches] = useState([]);
+    const [loading , setLoading] = useState(false);
+    const [error , setError] = useState(null);
+
+    //search related states
+    const [searchValue, setSearchValue] = useState("");
+    const [searchedItem, setSearchedItem] = useState([]);
+    const [onSearch, setOnSearch] = useState(false);
 
     // cart related states
     const [cartItems, setCartItems] = useState([]);
     //BasketCartShown
-    let [IsBasketHidden , setIsBasketHidden] = useState(true);
+    const [IsBasketHidden , setIsBasketHidden] = useState(true);
 
     //filter states
-    let [filter , setFilter] = useState("all");
+    const [filter , setFilter] = useState("all");
 
     useEffect( () => {
         async function getApi(){
@@ -163,7 +168,8 @@ function App() {
         }
     }, [error]);
 
-    //فیلتر کردن بر اساس اینکه اون محصول لایک شده یا نه
+
+    //likes and filter related functions
     function filterChange() {
         if (filter === "all") {
             setFilter("fav");
@@ -171,7 +177,6 @@ function App() {
             setFilter("all");
         }
     }
-    //لایک کردن یک محصول
     function likeItem(id) {
         setWatches(prev =>
             prev.map(item =>
@@ -181,17 +186,36 @@ function App() {
             )
         );
     }
+
+    //Basket related functions
     function addToBasket(item){
         setCartItems(prev => [...prev, item])
     }
-
-    // تخلیه سبد خرید
     function EmptyBasket(){
         setCartItems([]);
-    };
+    }
     function basketShowHandler(){
         setIsBasketHidden(prev => !prev);
     }
+
+
+    //searched related functions
+    function searchHandler(item){
+        setSearchValue(item);
+        if(item) {
+            setSearchedItem(watches.filter(w => w.title.toLowerCase().includes(item.toLowerCase())));
+            setOnSearch(true);
+        } else {
+            emptySearchInput();
+        }
+    }
+    function emptySearchInput(){
+        setSearchValue("");
+        setSearchedItem([]);
+        setOnSearch(false);
+
+    }
+
 
 
 
@@ -200,27 +224,47 @@ function App() {
     if(loading){
         return <Loader/>
     }
-    return (
-      <>
-          <SearchSection/>
-          <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-20">
-              {
-                  filter === "all" ?
-                  watches.map((watch)=>{
-                      return <Cart key={watch.id} {...watch} onFav={()=>{likeItem(watch.id)}} addToBasket={()=>{addToBasket(watch)}} cartItems={cartItems}/>
-                  }):
-                      watches
-                          .filter((watch) => watch.favorite)
-                          .map((watch) => (
-                              <Cart key={watch.id} {...watch} onFav={()=>{likeItem(watch.id)}} addToBasket={()=>{addToBasket(watch)}} cartItems={cartItems}/>
-                          ))
-              }
-          </div>
-          <BasketCart hidden={IsBasketHidden} basketShowHandler={basketShowHandler} cartItems={cartItems} EmptyBasket={EmptyBasket}/>
-          <ButtonNavigation filterChange={filterChange} basketShowHandler={basketShowHandler} IsBasketHidden={IsBasketHidden} filter={filter}/>
 
-      </>
-  )
+    return (
+        <>
+            <SearchSection
+                searchValue={searchValue}
+                searchHandler={searchHandler}
+                emptySearchInput={emptySearchInput}
+            />
+
+            <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-20">
+                {(
+                    filter === "all"
+                        ? (onSearch ? searchedItem : watches)
+                        : (onSearch ? searchedItem : watches.filter(w => w.favorite))
+                ).map(watch => (
+                    <Cart
+                        key={watch.id}
+                        {...watch}
+                        onFav={() => likeItem(watch.id)}
+                        addToBasket={() => addToBasket(watch)}
+                        cartItems={cartItems}
+                    />
+                ))}
+            </div>
+
+            <BasketCart
+                hidden={IsBasketHidden}
+                basketShowHandler={basketShowHandler}
+                cartItems={cartItems}
+                EmptyBasket={EmptyBasket}
+            />
+
+            <ButtonNavigation
+                filterChange={filterChange}
+                basketShowHandler={basketShowHandler}
+                IsBasketHidden={IsBasketHidden}
+                filter={filter}
+            />
+        </>
+
+    )
 }
 
 export default App
