@@ -77,7 +77,7 @@ function App() {
         }
     }
     function likeItem(id) {
-        setProductList(prev =>
+        setProduct(prev =>
             prev.map(item =>
                 item.id === id
                     ? { ...item, favorite: !item.favorite }
