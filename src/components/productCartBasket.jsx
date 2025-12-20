@@ -1,5 +1,10 @@
+import {useEffect} from "react";
 
 export default function ProductCartBasket({title, price, color,image}){
+    // -------------------- Basket Effects --------------------
+    useEffect(() => {
+        console.log("Basket cart: ", title);
+    }, []);
 
 
     // فرمت قیمت به صورت تومان

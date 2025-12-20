@@ -10,36 +10,34 @@ import SearchSection from "./components/searchSection.jsx";
 function App() {
 
 
-    // API related stated
-    let [producteList , setProductList]= useState([]);
-    const [loading , setLoading] = useState(false);
-    const [error , setError] = useState(null);
+    // -------------------- Product States --------------------
+    const [productList, setProductList] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    //search related states
-    const [product , setProduct] = useState([]);
+    // -------------------- Search States --------------------
+    const [product, setProduct] = useState([]);
     const [searchValue, setSearchValue] = useState("");
-    // cart related states
+
+    // -------------------- Cart States --------------------
     const [cartItems, setCartItems] = useState([]);
-    //BasketCartShown
-    const [IsBasketHidden , setIsBasketHidden] = useState(true);
+    const [isBasketHidden, setIsBasketHidden] = useState(true);
 
-    //filter states
-    const [filter , setFilter] = useState("all");
+    // -------------------- Filter States --------------------
+    const [filter, setFilter] = useState("all");
 
-    //API
-    useEffect( () => {
-        async function getApi(){
-            let retry = 3
-            let attempt = 1
+    // -------------------- Product Effects --------------------
+    useEffect(() => {
+        async function getApi() {
+            let retry = 3;
+            let attempt = 1;
 
             for (attempt; attempt <= retry; attempt++) {
                 try {
                     setLoading(true);
                     const response = await fetch('https://fakestoreapi.com/products');
 
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
                     const data = await response.json();
                     setProductList(data.map(item => ({ ...item, favorite: false })));
@@ -49,69 +47,47 @@ function App() {
                         setError(error);
                         throw error;
                     }
-                    let backoffTime = 2**(attempt-1)*1000;
+                    let backoffTime = 2 ** (attempt - 1) * 1000;
                     await new Promise(resolve => setTimeout(resolve, backoffTime));
                 } finally {
                     setLoading(false);
-                    setProduct(producteList)
+                    setProduct(productList);
                 }
             }
         }
         getApi();
-    },[])
+    }, []);
 
-    // Error handling
+    // -------------------- Error Handling --------------------
+    useEffect(() => {if (error) swal("ERROR", error.message, "error");}, [error]);
+
+    // -------------------- Search Effects --------------------
     useEffect(() => {
-        if (error) {
-            swal("ERROR", error.message, "error");
-        }
-    }, [error]);
+        if (searchValue.length) {
+            setProduct(
+                productList.filter(w => w.title.toLowerCase().includes(searchValue.toLowerCase()))
+            );
+        } else {setProduct(productList);}
+    }, [searchValue, productList]);
 
-
-    //likes and filter related functions
-    function filterChange() {
-        if (filter === "all") {
-            setFilter("fav");
-        }else{
-            setFilter("all");
-        }
-    }
+    // -------------------- Product Functions --------------------
+    function filterChange() {setFilter(prev => prev === "all" ? "fav" : "all")}
     function likeItem(id) {
         setProduct(prev =>
             prev.map(item =>
-                item.id === id
-                    ? { ...item, favorite: !item.favorite }
-                    : item
+                item.id === id ? { ...item, favorite: !item.favorite } : item
             )
         );
     }
 
-    //Basket related functions
-    function addToBasket(item){
-        setCartItems(prev => [...prev, item])
-    }
-    function EmptyBasket(){
-        setCartItems([]);
-    }
-    function basketShowHandler(){
-        setIsBasketHidden(prev => !prev);
-    }
+    // -------------------- Cart Functions --------------------
+    function addToBasket(item) {setCartItems(prev => [...prev, item]);}
+    function emptyBasket() {setCartItems([]);}
+    function basketShowHandler() {setIsBasketHidden(prev => !prev);}
 
-
-    //searched related functions
-    function searchHandler(item){
-        setSearchValue(item);
-        if(item) {
-            setProduct(producteList.filter(w => w.title.toLowerCase().includes(item.toLowerCase())));
-        } else {
-            emptySearchInput();
-        }
-    }
-    function emptySearchInput(){
-        setSearchValue("");
-        setProduct(producteList)
-    }
-
+    // -------------------- Search Functions --------------------
+    function searchHandler(item) {setSearchValue(item);}
+    function emptySearchInput() {setSearchValue("");}
 
 
 
@@ -146,16 +122,16 @@ function App() {
             </div>
 
             <BasketCart
-                hidden={IsBasketHidden}
+                hidden={isBasketHidden}
                 basketShowHandler={basketShowHandler}
                 cartItems={cartItems}
-                EmptyBasket={EmptyBasket}
+                EmptyBasket={emptyBasket}
             />
 
             <ButtonNavigation
                 filterChange={filterChange}
                 basketShowHandler={basketShowHandler}
-                IsBasketHidden={IsBasketHidden}
+                isBasketHidden={isBasketHidden}
                 filter={filter}
             />
         </>
