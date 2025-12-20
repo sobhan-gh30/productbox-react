@@ -1,5 +1,5 @@
 
-export default function ProductCartBasket({title, price, color}){
+export default function ProductCartBasket({title, price, color,image}){
 
 
     // فرمت قیمت به صورت تومان
@@ -11,12 +11,12 @@ export default function ProductCartBasket({title, price, color}){
         <div className="bg-gray-50 rounded-xl p-5 hover:bg-white hover:shadow-lg transition-all duration-300 border border-gray-200">
             <div className="flex flex-col md:flex-row">
                 {/* تصویر محصول */}
-                <div className="md:w-1/4 mb-4 md:mb-0">
+                <div className="md:w-1/4 mb-4 md:mb-0  rounded-xl border border-gray-300 flex justify-center">
                     <div className="relative">
                         <img
-                            src="/img/watch.png"
+                            src={image}
                             alt={title}
-                            className="w-full h-48 md:h-40 object-cover rounded-xl border border-gray-300"
+                            className="w-fit h-48 md:h-40 object-cover"
                         />
                     </div>
                 </div>
