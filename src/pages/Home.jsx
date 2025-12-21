@@ -7,7 +7,7 @@ import swal from 'sweetalert';
 import SearchSection from "../components/searchSection.jsx";
 
 
-export default function Home({basketShowHandler, isBasketHidden, filter}) {
+export default function Home({basketShowHandler, isBasketHidden, filter , addToBasket , cartItems , emptyBasket}) {
 
 
     // -------------------- Product States --------------------
@@ -15,8 +15,6 @@ export default function Home({basketShowHandler, isBasketHidden, filter}) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // -------------------- Cart States --------------------
-    const [cartItems, setCartItems] = useState([]);
 
     // -------------------- Search States --------------------
     const [product, setProduct] = useState([]);
@@ -74,10 +72,6 @@ export default function Home({basketShowHandler, isBasketHidden, filter}) {
             )
         );
     }
-
-    // -------------------- Cart Functions --------------------
-    function addToBasket(item) {setCartItems(prev => [...prev, item]);}
-    function emptyBasket() {setCartItems([]);}
 
 
     // -------------------- Search Functions --------------------

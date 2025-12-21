@@ -1,3 +1,5 @@
+import {Link} from "react-router";
+
 export default function Cart({id, title, price, favorite, summery, color, onFav, addToBasket, cartItems, image }) {
     // فرمت قیمت به صورت تومان
     const formatPrice = (price) => {
@@ -43,12 +45,12 @@ export default function Cart({id, title, price, favorite, summery, color, onFav,
             </div>
 
             <div className="mt-4 flex items-center justify-between">
-                <a
-                    href="#"
+                <Link
+                    to={`/products/${id}`}
                     className="text-sm text-gray-400 hover:text-gray-600 transition"
                 >
                     بیشتر...
-                </a>
+                </Link>
 
                 {
                     cartItems.find(item => item.id === id)? <span>✅ </span> :<button onClick={addToBasket} className="text-sm font-medium text-gray-700 hover:text-gray-900 transition">افزودن به سبد</button>
