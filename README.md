@@ -1,16 +1,151 @@
-# React + Vite
+# 🛒 React Shop - پروژه تمرینی فروشگاه
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+یک پروژه تمرینی فروشگاهی ساخته‌شده با **React**، **React Router** و **Tailwind CSS** که داده‌های محصولات را از Fake Store API دریافت می‌کند. این پروژه شامل قابلیت‌های جستجو، علاقه‌مندی، مشاهده جزئیات محصول و مدیریت سبد خرید است.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ ویژگی‌های پروژه
 
-## React Compiler
+### 🎯 عملکرد اصلی
+- 🔹 **دریافت لیست محصولات از API** - ارتباط با Fake Store API
+- 🔹 **نمایش جزئیات هر محصول** - با استفاده از Dynamic Routes
+- 🔹 **سیستم جستجوی پیشرفته** - بر اساس نام محصول
+- 🔹 **مدیریت سبد خرید** - افزودن و حذف محصولات
+- 🔹 **سیستم علاقه‌مندی** - ذخیره و فیلتر محصولات موردعلاقه
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🎨 طراحی و تجربه کاربری
+- 🔹 **طراحی ریسپانسیو** - سازگار با تمام دستگاه‌ها
+- 🔹 **UI مدرن** - استفاده از Modal و Bottom Navigation
+- 🔹 **لودینگ هوشمند** - نمایش وضعیت بارگذاری
+- 🔹 **مدیریت خطا** - نمایش پیام‌های خطای مناسب
 
-## Expanding the ESLint configuration
+## 🛠️ تکنولوژی‌های استفاده شده
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| تکنولوژی | کاربرد |
+|----------|---------|
+| **React** | کتابخانه اصلی رابط کاربری |
+| **React Router** | مدیریت مسیرها و صفحات |
+| **Tailwind CSS** | استایل‌دهی و طراحی |
+| **JavaScript (ES6+)** | منطق برنامه |
+| **Fake Store API** | منبع داده محصولات |
+| **SweetAlert** | نمایش نوتیفیکیشن |
+
+## 📁 ساختار پروژه
+
+```
+src/
+│
+├── components/
+│   ├── Cart.jsx              # کامپوننت سبد خرید
+│   ├── BasketCart.jsx        # نمایش سبد خرید
+│   ├── ButtonNavigation.jsx  # نویگیشن پایین صفحه
+│   ├── Loader.jsx            # انیمیشن لودینگ
+│   ├── ProductCartBasket.jsx # آیتم محصول در سبد
+│   └── SearchSection.jsx     # بخش جستجو
+│
+├── pages/
+│   ├── Home.jsx              # صفحه اصلی
+│   └── Product.jsx           # صفحه جزئیات محصول
+│
+├── App.jsx                   # کامپوننت اصلی
+└── main.jsx                  # نقطه ورود برنامه
+```
+
+## 🚀 راه‌اندازی پروژه
+
+1. **کلون کردن ریپازیتوری**
+```bash
+git clone https://github.com/sobhan-gh30/react-shop.git
+cd react-shop
+```
+
+2. **نصب وابستگی‌ها**
+```bash
+npm install
+```
+
+3. **اجرای پروژه در محیط توسعه**
+```bash
+npm run dev
+```
+
+4. **ساخت نسخه تولید**
+```bash
+npm run build
+```
+
+## 🌐 API استفاده شده
+
+| نوع درخواست | آدرس API | توضیحات |
+|-------------|----------|---------|
+| دریافت همه محصولات | `https://fakestoreapi.com/products` | لیست کامل محصولات |
+| دریافت یک محصول | `https://fakestoreapi.com/products/:id` | جزئیات محصول خاص |
+
+## 🛍️ بررسی صفحات
+
+### 🏠 صفحه اصلی (Home)
+- نمایش لیست محصولات به صورت کارت‌های جذاب
+- امکان جستجو در بین محصولات
+- سیستم علامت‌گذاری علاقه‌مندی
+- دکمه افزودن به سبد خرید
+- طراحی ریسپانسیو و مدرن
+
+### 📦 صفحه محصول (Product)
+- نمایش جزئیات کامل محصول
+- تصویر با کیفیت بالا
+- توضیحات کامل محصول
+- قیمت و دسته‌بندی
+- دکمه‌های اقدام سریع
+
+### 🧺 سبد خرید (Basket Modal)
+- نمایش محصولات انتخاب شده
+- محاسبه خودکار قیمت کل
+- امکان تغییر تعداد
+- دکمه خالی کردن سبد خرید
+- طراحی مودال تعاملی
+
+## 🎯 اهداف آموزشی
+
+این پروژه با هدف تمرین و یادگیری موارد زیر ساخته شده است:
+
+### 💡 مفاهیم React
+- کار با Component و Props
+- مدیریت State با Hooks
+- Lifecycle Methods
+- Conditional Rendering
+
+### 🔗 ارتباط با API
+- استفاده از Fetch API
+- مدیریت Promise و Async/Await
+- هندلینگ وضعیت‌های Loading و Error
+
+### 🧭 مسیریابی
+- پیاده‌سازی React Router
+- Dynamic Routing
+- Navigation Guards
+
+### 🎨 طراحی رابط کاربری
+- استایل‌دهی با Tailwind CSS
+- طراحی ریسپانسیو
+- کامپوننت‌های قابل استفاده مجدد
+
+### 📦 معماری پروژه
+- ساختار فایل‌بندی مناسب
+- Separation of Concerns
+- کد تمیز و قابل نگهداری
+
+## 👤 توسعه‌دهنده
+
+**سبحان قاسمی**  
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sobhan-gh30)
+
+## 📌 نکات مهم
+
+- این پروژه **صرفاً برای اهداف آموزشی** ساخته شده است
+- از API رایگان Fake Store استفاده می‌کند
+- مناسب برای تمرین مفاهیم پایه و متوسط React
+- قابلیت توسعه و اضافه کردن ویژگی‌های بیشتر را دارد
+
+---
